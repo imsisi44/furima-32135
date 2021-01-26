@@ -1,0 +1,128 @@
+<%= render "shared/header" %>
+  <div class='item-contents'>
+    <table class="detail-table">
+      <tbody>
+        <tr>
+          <th class="detail-item">ニックネーム</th>
+          <td class="detail-value"><%= @user.nickname %></td>
+        </tr>
+        <% if current_user == @user %>
+        <tr>
+          <th class="detail-item">姓</th>
+          <td class="detail-value"><%= current_user.last_name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">名</th>
+          <td class="detail-value"><%= current_user.first_name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">姓(カナ)</th>
+          <td class="detail-value"><%= current_user.last_name_kana %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">名(カナ)</th>
+          <td class="detail-value"><%= current_user.first_name_kana %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">生年月日</th>
+          <td class="detail-value"><%= current_user.birthday %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">出品数</th>
+          <td class="detail-value"><%= current_user.items.count %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <h2 class='subtitle'>出品商品一覧</h2>
+    <ul class='item-lists'>
+      <% if @user.items[0]!= nil %>
+      <% @user.items.each do |item| %>
+        <li class='list'>
+          <%= link_to item_path(item) do %>
+          <div class='item-img-content'>
+            <%= image_tag item.image, class: "item-img" %>
+
+            <% if item.purchase.present? %>
+              <div class='sold-out'>
+                <span>Sold Out!!</span>
+              </div>
+            <% end %>
+          </div>
+          <div class='item-info'>
+            <h3 class='item-name'>
+              <%= item.name %>
+            </h3>
+          <div class='item-price'>
+            <span><%= item.price %>円<br><%= item.shipping_payer.name %></span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>
+                <%= item.favorites.count %>
+              </span>
+            </div>
+          </div>
+          <% end %>
+        </li>
+      <% end %>
+      <% end %>
+
+      <% if @user.items.length == 0 %>
+      <li class='list'>
+        <%= link_to "#" do %>
+        <%= image_tag "https://s3-ap-northeast-1.amazonaws.com/mercarimaster/uploads/captured_image/content/10/a004.png", class: "item-img" %>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            商品を出品してね！
+          </h3>
+          <div class='item-price'>
+            <span>99999999円<br>(税込み)</span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>0</span>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+    <% if current_user == @user %>
+    <h2 class='subtitle'>お気に入り商品一覧</h2>
+    <ul class='item-lists'>
+      <% if @favorite_list.present? %>
+      <% @favorite_list.each do |item| %>
+        <li class='list'>
+          <%= link_to item_path(item) do %>
+          <div class='item-img-content'>
+            <%= image_tag item.image, class: "item-img" %>
+            <% if item.purchase.present? %>
+              <div class='sold-out'>
+                <span>Sold Out!!</span>
+              </div>
+            <% end %>
+          </div>
+          <div class='item-info'>
+            <h3 class='item-name'>
+              <%= item.name %>
+            </h3>
+          <div class='item-price'>
+            <span><%= item.price %>円<br><%= item.shipping_payer.name %></span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>
+                <%= item.favorites.count %>
+              </span>
+            </div>
+          </div>
+          <% end %>
+        </li>
+      <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  <%= link_to(new_item_path, class: 'purchase-btn') do %>
+    <span class='purchase-btn-text'>出品する</span>
+    <%= image_tag 'icon_camera.png' , size: '185x50' ,class: "purchase-btn-icon" %>
+  <% end %>
+<%= render "shared/footer" %>

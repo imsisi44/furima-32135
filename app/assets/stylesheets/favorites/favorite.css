@@ -1,0 +1,10 @@
+.like-on {
+  color: rgb(249, 75, 0);
+}
+
+.like-off {
+  color: black;
+}
+.favorite-star-icon {
+  margin-right: 5px;
+}
