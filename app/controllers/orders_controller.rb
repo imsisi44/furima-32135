@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
   before_action :sold_out_item, only: [:index]
 
   def index
@@ -32,7 +33,7 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = Rails.application.credentials.PAYJP[:PAYJP_SECRET_KEY]
+    Payjp.api_key = Rails.application.credentials.payjp[:PAYJP_SECRET_KEY]
     Payjp::Charge.create(
       amount: @item.price,
       card: order_params[:token],
