@@ -20,7 +20,7 @@ class OrdersController < ApplicationController
     if @order.valid?
       pay_item
       @order.save
-      return redirect_to root_path
+      redirect_to "https://furima-32135.herokuapp.com"
     else
       render 'index'
     end
