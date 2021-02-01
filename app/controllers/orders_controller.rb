@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
   before_action :sold_out_item, only: [:index]
+  require 'payjp'
 
   def index
     @item = Item.find(params[:item_id])
