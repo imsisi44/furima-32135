@@ -19,9 +19,14 @@ class OrdersController < ApplicationController
     @order.user = current_user
     @order.item = @item
     if @order.valid?
-      pay_item
+      Payjp.api_key = Rails.application.credentials.payjp[:PAYJP_SECRET_KEY]
+      Payjp::Charge.create(
+        amount: @item.price,
+        card: order_params[:token],
+        currency: 'jpy'
+      )
       @order.save
-      return redirect_to root_path
+      redirect_to root_path
     else
       render 'index'
     end
