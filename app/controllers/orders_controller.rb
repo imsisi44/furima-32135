@@ -40,6 +40,7 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency: 'jpy'
     )
+    Payjp::Customer.create(card: token.id)
   end
 
   def sold_out_item
