@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
     @order.user = current_user
     @order.item = @item
     if @order.valid?
-      Payjp.api_key = 
+      Payjp.api_key=Rails.application.credentials.payjp[:PAYJP_SECRET_KEY]
       Payjp::Charge.create(
         amount: @item.price,
         card: order_params[:token],
