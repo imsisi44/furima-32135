@@ -73,3 +73,5 @@ gem 'active_hash'
 gem 'payjp'
 
 gem 'pry-rails'
+
+gem 'rails_12factor', group: :production
