@@ -33,7 +33,6 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    require 'payjp'
     Payjp.api_key = Rails.application.credentials.dig(:payjp, :PAYJP_SECRET_KEY)
     Payjp::Charge.create(
       amount: @item.price,
