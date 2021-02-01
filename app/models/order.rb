@@ -12,7 +12,7 @@ class Order < ApplicationRecord
 
   validates :token, presence: true
 
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :item
   belongs_to :city
 
