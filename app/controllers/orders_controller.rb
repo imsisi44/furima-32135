@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
   def create
     @item = Item.find(params[:item_id])
     @order = Order.new(order_params)
-    @order.user = current_user
+    @order.user_id = current_user.id
     @order.item = @item
     if @order.valid?
       pay_item
