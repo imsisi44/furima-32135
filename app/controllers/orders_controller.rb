@@ -20,7 +20,7 @@ class OrdersController < ApplicationController
     if @order.valid?
       pay_item
       @order.save
-      redirect_to root_path
+      return redirect_to root_path
     else
       render 'index'
     end
@@ -33,7 +33,7 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = Rails.application.credentials.payjp(:PAYJP_SECRET_KEY)
+    Payjp.api_key = Rails.application.credentials[:payjp][:PAYJP_SECRET_KEY]
     Payjp::Charge.create(
       amount: @item.price,
       card: order_params[:token],
