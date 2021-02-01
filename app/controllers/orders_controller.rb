@@ -30,7 +30,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:post_code, :city_id, :municipality, :house_number, :building_number, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token], )
+    params.require(:order).permit(:post_code, :city_id, :municipality, :house_number, :building_number, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def pay_item
@@ -40,7 +40,6 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency: 'jpy'
     )
-    Payjp::Customer.create(card: token.id)
   end
 
   def sold_out_item
