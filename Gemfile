@@ -34,6 +34,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'factory_bot_rails'
+  gem 'sqlite3'
 end
 
 group :development do
@@ -44,7 +45,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rubocop', require: false
-  gem 'sqlite3'
 end
 
 group :test do
